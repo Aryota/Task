@@ -1,0 +1,2 @@
+class Taskin < ApplicationRecord
+end
