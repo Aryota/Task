@@ -1,3 +1,15 @@
 h1 タスク一覧
 
 li = link_to "新規作成",new_task_path,class:"btn btn-primary" 
+.mb3
+table.table.table-hover
+    thead.thead-default
+        tr
+            th= Task.human_attribute_name(:_name)
+            th= Task.human_attribute_name(:created_at)
+    tboy
+        -@tasks.each do |task|
+            tr
+                td= task._name
+                td= task.created_at
+                td = link_to task._name, task
