@@ -67,3 +67,6 @@ gem "html2slim"
 gem 'bootstrap-sass', '3.3.7'
 # エラーの日本語化
 gem 'rails-i18n'
+# 環境変数
+gem 'dotenv-rails'
+
