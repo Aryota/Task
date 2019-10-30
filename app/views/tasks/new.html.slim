@@ -3,11 +3,4 @@ h1 タスクの新規作成
 .nav.justify-content-end
     = link_to "一覧",tasks_path, class: "nav-link"
 
-=form_with model: @task, local: true do |f|
-    .form-group
-     = f.label :_name
-     = f.text_field :_name, class: "form-control" , id: "task_name"
-    .form-group
-     = f.label :_description
-     = f.text_area :_description, rows: 5, class: "form-control", id: "task_description"
-     = f.submit nil, class: "btn btn-primary"
+= render partial: "form", locals:{task: @task}
