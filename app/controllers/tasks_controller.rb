@@ -5,8 +5,9 @@ class TasksController < ApplicationController
 
   def show
     @task =Task.find(params[:id])
+  rescue ActiveRecord::RecordNotFound => e
+    redirect_to :root, alert: 'User not found'
   end
-
   def new
     @task = Task.new
   end
@@ -18,23 +19,22 @@ class TasksController < ApplicationController
   def update
     task= Task.find(params[:id])
     task.update!(task_params)
-    redirect_to tasks_url, notice:"タスク「#{task._name}」を更新しました。"
+    redirect_to tasks_url, notice:"タスク「#{task.name}」を更新しました。"
   end
   def destroy
     task =Task.find(params[:id])
     task.destroy
-    redirect_to tasks_url, notice:"タスクを「#{task._name}」削除しました"
+    redirect_to tasks_url, notice:"タスクを「#{task.name}」削除しました"
   end
   def create
     task =Task.new(task_params)
     task.save!
-    redirect_to tasks_url, notice: "タスクを「#{task._name}」登録"
+    redirect_to tasks_url, notice: "タスクを「#{task.name}」登録"
   end
 
   private
 
   def task_params
-    params.require(:task).permit(:_name, :_description)
+    params.require(:task).permit(:name, :description)
   end
-
 end
