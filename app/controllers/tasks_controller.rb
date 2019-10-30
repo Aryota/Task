@@ -5,8 +5,6 @@ class TasksController < ApplicationController
 
   def show
     @task =Task.find(params[:id])
-  rescue ActiveRecord::RecordNotFound => e
-    redirect_to :root, alert: 'User not found'
   end
   def new
     @task = Task.new
