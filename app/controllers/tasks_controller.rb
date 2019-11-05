@@ -25,9 +25,12 @@ class TasksController < ApplicationController
     redirect_to tasks_url, notice:"タスクを「#{task.name}」削除しました"
   end
   def create
-    task =Task.new(task_params)
-    task.save!
-    redirect_to tasks_url, notice: "タスクを「#{task.name}」登録"
+    @task =Task.new(task_params)
+    if @task.save
+      redirect_to @task, notice: "タスクを「#{@task.name}」登録しました"
+    else
+      render :new
+    end
   end
 
   private

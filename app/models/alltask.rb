@@ -1,2 +1,0 @@
-class Alltask < ApplicationRecord
-end
