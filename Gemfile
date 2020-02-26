@@ -40,7 +40,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails', '~> 3.7.2'
-
+  gem 'pry-rails'
 end
 
 group :development do
@@ -69,4 +69,4 @@ gem "html2slim"
 gem 'bootstrap-sass', '3.3.7'
 gem 'rails-i18n'
 gem 'dotenv-rails'
-
+gem 'pry-rails'

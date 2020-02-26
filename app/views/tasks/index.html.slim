@@ -5,14 +5,17 @@ li = link_to "新規作成",new_task_path,class:"btn btn-primary"
 table.table.table-hover
     thead.thead-default
         tr
-            th= Task.human_attribute_name(:name)
-            th= Task.human_attribute_name(:created_at)
+            th = Task.human_attribute_name(:name)
+            th = Task.human_attribute_name(:created_at)
+            th = Task.human_attribute_name(:updated_at)
+
             th
     tboy
         -@tasks.each do |task|
             tr
                 td= link_to task.name, task
                 td= task.created_at
+                td= task.updated_at
                 td 
                     = link_to "編集", edit_task_path(task),class:"btn btn-primary mr-3"
-                    = link_to "削除", task,method: :delete, date: { confirm: "タスク「#{task.name}」を削除します。よろしいでしょうか？"}, class: "btn btn-danger"
+                    = link_to "削除", task,method: :delete, data: { confirm: "タスク「#{task.name}」を削除します。よろしいでしょうか？"}, class: "btn btn-danger"
