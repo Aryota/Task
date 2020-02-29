@@ -7,5 +7,4 @@ class CreateTasks < ActiveRecord::Migration[5.2]
       t.index :name, unique: true
     end
   end
-
 end

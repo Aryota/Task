@@ -5,7 +5,7 @@ h1 ユーザーの詳細
 table.table.table-hover
   tbody
     tr
-      th = User.humam_attribute_name(:id)
+      th = User.human_attribute_name(:id)
       td = @user.id
     tr
       th= User.human_attribute_name(:name)
@@ -15,13 +15,13 @@ table.table.table-hover
       td= @user.email
     tr
       th= User.human_attribute_name(:admin)
-      td= @user.admin? ?'あり':'なし'
+      td= @user.admin? ? 'あり' : 'なし'
     tr
       th= User.human_attribute_name(:created_at)
       td= @user.created_at
     tr
-      th= User.human_attribute_name(:upload_at)
-      td= @user.upload_at
+      th= User.human_attribute_name(:updated_at)
+      td= @user.updated_at
 
 =link_to '編集',edit_admin_user_path, class: 'btn btn-primary mr-3'
 =link_to '削除',[:admin,@user],method: :delete, data: { confirm: "ユーザー「#{@user.name}」を削除します。よろしいでしょうか？"},class: 'btn btn-danger'
