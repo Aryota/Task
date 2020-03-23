@@ -59,4 +59,10 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
+  # config.logger = Logger.new('log/development.log', 'daily')
+  # config.custom_logger = Logger.new('log/custom.log', 'weekly')
+
+  # config.logger.formatter = proc { |severity, timestamp, progname, message|
+  #   "#{timestamp} :#{severity}: #{message}\n"
+  # }
 end

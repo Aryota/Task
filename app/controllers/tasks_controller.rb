@@ -16,22 +16,29 @@ class TasksController < ApplicationController
 
   def update
     @task.update!(task_params)
-    redirect_to tasks_url, notice:"タスク「#{task.name}」を更新しました。"
+    redirect_to tasks_url, notice:"タスク「#{@task.name}」を更新しました。"
   end
 
   def destroy
     @task.destroy
-    redirect_to tasks_url, notice:"タスクを「#{task.name}」削除しました"
+    redirect_to tasks_url, notice:"タスクを「#{@task.name}」削除しました"
   end
 
   def create
     @task = Task.new(task_params.merge(user_id: current_user.id))
     if @task.save
+      logger.debug "task: #{@task.attributes.inspect}"
       redirect_to @task, notice: "タスクを「#{@task.name}」登録しました"
     else
       render :new
     end
   end
+
+  # def task_logger
+  #   @task_logger ||= Logger.new('log/task.log', 'daily')
+  # end
+
+  # task_logger.debug 'taskのログを出力'
 
   private
 
