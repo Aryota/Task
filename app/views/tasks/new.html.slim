@@ -16,5 +16,8 @@ h1 タスクの新規作成
     = f.label :description
     = f.text_area :description, rows: 5, class: 'form-control', id: 'task_description'
   = f.submit '確認', class: 'btn btn-primary'
+  .form-group
+    = f.hidden_field :completed,:value => 0, id: 'task_completed'
+  = f.submit nil, class: 'btn btn-primary'
 
 = render partial: "form", locals: { task: @task }
