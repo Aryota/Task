@@ -73,4 +73,5 @@ gem 'dotenv-rails'
 gem 'bcrypt', '~>3.1.7'
 gem 'factory_bot_rails', '~> 4.11'
 gem 'rails_autolink'
-
+gem 'ransack'
+gem 'kaminari'
