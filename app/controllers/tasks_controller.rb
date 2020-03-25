@@ -2,9 +2,9 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   def index
     @show = params[:show]
-    if @show == "all" then
+    if @show == "all"
       @tasks = Task.all
-    elsif @show == "completed" then
+    elsif @show == "completed"
       @tasks = Task.where(completed: 1)
     else
       @tasks = Task.where(completed: 0)
@@ -73,7 +73,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :descriptionm, :image, :column, :completed)
+    params.require(:task).permit(:name, :descriptionm, :image, :completed)
   end
 
   def set_task
