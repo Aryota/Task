@@ -67,7 +67,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "slim-rails"
 gem "html2slim"
 
-gem 'bootstrap-sass', '3.3.7'
+gem 'bootstrap-sass', '3.4.1'
 gem 'rails-i18n'
 gem 'dotenv-rails'
 gem 'bcrypt', '~>3.1.7'
