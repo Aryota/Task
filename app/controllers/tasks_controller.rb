@@ -11,6 +11,10 @@ class TasksController < ApplicationController
   end
 
   def show
+    @task = Task.find(params[:id])
+    @posts = Post.all
+    @post = Post.new
+    # @post_create = Post.find(params[:id])
   end
 
   def new
@@ -44,6 +48,8 @@ class TasksController < ApplicationController
     else
       render :new
     end
+    @post = Post.new(content:params[:content])
+    @post.save
   end
 
   def confirm_new

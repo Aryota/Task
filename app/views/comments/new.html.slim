@@ -1,0 +1,6 @@
+h1 投稿
+= form_with model: @comment, local: true do |f|
+  .form_group
+    = f.label :name
+    = f.tect_field :name, class: 'form-control', id: 'comment_name'
+= f.submit nil, class: 'btn btn-primary'
