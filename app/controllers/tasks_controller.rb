@@ -12,9 +12,8 @@ class TasksController < ApplicationController
 
   def show
     @task = Task.find(params[:id])
-    @posts = Post.all
-    @post = Post.new
-    # @post_create = Post.find(params[:id])
+    @comments = @task.comments
+    @comment = Comment.new
   end
 
   def new
@@ -48,8 +47,6 @@ class TasksController < ApplicationController
     else
       render :new
     end
-    @post = Post.new(content:params[:content])
-    @post.save
   end
 
   def confirm_new
@@ -62,16 +59,14 @@ class TasksController < ApplicationController
     redirect_to tasks_url, notice: "タスクを追加しました"
   end
 
-  # def task_logger
-  #   @task_logger ||= Logger.new('log/task.log', 'daily')
-  # end
-
-  # task_logger.debug 'taskのログを出力'
-
   private
 
   def task_params
-    params.require(:task).permit(:name, :descriptionm, :image)
+    params.require(:task).permit(:name, :descriptionm, :image, :content)
+  end
+
+  def comment_params
+    params.require(:comment).permit(:content)
   end
 
   def set_task

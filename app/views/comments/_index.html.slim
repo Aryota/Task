@@ -1,0 +1,13 @@
+.mb-3
+table.table.table-hover
+  tbody
+    - @comments.each do |comment|
+      tr
+      td= comment.content
+      td= comment.created_at
+h1 投稿
+= form_with model: @comment, local: true do |f|
+  .form_group
+    = f.text_area :content, class: 'form-control'
+  = f.submit 'コメントする', class: 'btn btn-primary'
+

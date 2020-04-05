@@ -1,20 +1,14 @@
 class CommentsController < AppricationController
-  # def index
-  #   @comments = Comment.all
-  # end
-  # def new
-  #   @comment = Comment.new(comment_params)
-  #   if @comment.save
-  #     redirect_back(fallback_location: root_path)
-  #   else
-  #     redirect_back(fallback_location: root_path)
-  #   end
-  # end
   def create
     @comment = Comment.new(comment_params)
     @comment.save!
+    redirect_to tasks/index
   end
 
+  # def destroy
+  #   @comment.destroy
+  #   redirect_to tasks_url, notice:"タスクを「#{@comment.content}」削除しました"
+  # end
   private
 
   def comment_params
