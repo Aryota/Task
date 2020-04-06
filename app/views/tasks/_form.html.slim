@@ -13,4 +13,7 @@
   .form_group
     = f.label :image
     = f.file_field :image, class: 'form-control'
+  .form-group
+    =f.label :priority
+    =f.select :priority, [['低',0],['中',1],['高',2]], {}, class: 'form-control', id: 'task_priority'
   =f.submit nil, class:"btn btn-primary"

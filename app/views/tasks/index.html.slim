@@ -23,16 +23,18 @@ table.table.table-hover
       th = sort_link(@q, :name)
       th = Task.human_attribute_name(:created_at)
       th = Task.human_attribute_name(:updated_at)
+      th = Task.human_attribute_name(:priority)
       th
-    tboy
-        -@tasks.each do |task|
-            tr
-							td= link_to task.name, task
-							td= task.created_at
-							td= task.updated_at
-							td
-								= link_to "編集", edit_task_path(task),class:"btn btn-primary mr-3"
-								= link_to "削除", task,method: :delete, data: { confirm: "タスク「#{task.name}」を削除します。よろしいでしょうか？"}, class: "btn btn-danger"
+    tbody
+      - @tasks.each do |task|
+        tr
+          td= link_to task.name, task
+          td= task.created_at
+          td= task.updated_at
+          td= task.priority
+          td
+            = link_to "編集", edit_task_path(task),class:"btn btn-primary mr-3"
+            = link_to "削除", task,method: :delete, data: { confirm: "タスク「#{task.name}」を削除します。よろしいでしょうか？"}, class: "btn btn-danger"
 
 = link_to 'エクスポート', tasks_path(format: :csv), class: 'btn btn-primary mb-3'
 

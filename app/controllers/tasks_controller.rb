@@ -11,6 +11,7 @@ class TasksController < ApplicationController
   end
 
   def show
+    @task_priority = Task.find_by(priority: params[:priority])
   end
 
   def new
@@ -65,7 +66,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :descriptionm, :image)
+    params.require(:task).permit(:name, :descriptionm, :image, :priority)
   end
 
   def set_task
