@@ -13,9 +13,14 @@ h1 タスク一覧
     = f.submit class: 'btn btn-outline-primary'
 
 li = link_to "新規作成",new_task_path,class:"btn btn-primary"
+
 .mb3
-  = paginate @tasks
-  = page_entries_info @tasks
+  = paginate @tasks_page
+  = page_entries_info @tasks_page
+.mb3
+  = link_to 'すべて', tasks_path(:show=>'all'), class: 'btn btn-outline-primary'
+  = link_to '完了', tasks_path(:show=>'completed'), class: 'btn btn-outline-primary'
+  = link_to '未完了', tasks_path, class: 'btn btn-outline-primary'
 
 table.table.table-hover
   thead.thead-default

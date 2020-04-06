@@ -1,12 +1,20 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   def index
+    @show = params[:show]
+    if @show == "all"
+      @tasks = Task.all
+    elsif @show == "completed"
+      @tasks = Task.where(completed: 1)
+    else
+      @tasks = Task.where(completed: 0)
+    end
     @q = current_user.tasks.ransack(params[:q])
-    @tasks = @q.result(distinct: true).page(params[:page])
+    @tasks_page = @q.result(distinct: true).page(params[:page])
 
     respond_to do |format|
       format.html
-      format.csv { send_data @tasks.generate_csv, filename: "tasks-#{Time.zone.now.strftime('%Y%m%d%S')}.csv"}
+      format.csv { send_data @tasks_page.generate_csv, filename: "tasks-#{Time.zone.now.strftime('%Y%m%d%S')}.csv"}
     end
   end
 
@@ -65,7 +73,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :descriptionm, :image)
+    params.require(:task).permit(:name, :descriptionm, :image, :completed)
   end
 
   def set_task
