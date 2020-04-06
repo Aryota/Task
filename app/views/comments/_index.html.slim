@@ -9,5 +9,5 @@ h1 投稿
 = form_with model: @comment, local: true do |f|
   .form_group
     = f.text_area :content, class: 'form-control'
+    = f.hidden_field :task_id
   = f.submit 'コメントする', class: 'btn btn-primary'
-

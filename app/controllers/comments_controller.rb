@@ -1,8 +1,8 @@
-class CommentsController < AppricationController
+class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params)
     @comment.save!
-    redirect_to tasks/index
+    redirect_to tasks_path
   end
 
   # def destroy
@@ -12,6 +12,6 @@ class CommentsController < AppricationController
   private
 
   def comment_params
-    params.require(:comment).permit(:content)
+    params.require(:comment).permit(:content,:task_id)
   end
 end

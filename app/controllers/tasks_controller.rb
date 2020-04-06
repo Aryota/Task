@@ -13,7 +13,7 @@ class TasksController < ApplicationController
   def show
     @task = Task.find(params[:id])
     @comments = @task.comments
-    @comment = Comment.new
+    @comment = @task.comments.new
   end
 
   def new
