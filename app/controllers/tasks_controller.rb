@@ -65,9 +65,6 @@ class TasksController < ApplicationController
     params.require(:task).permit(:name, :descriptionm, :image, :content)
   end
 
-  def comment_params
-    params.require(:comment).permit(:content)
-  end
 
   def set_task
     @task = current_user.tasks.find(params[:id])

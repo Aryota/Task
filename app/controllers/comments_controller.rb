@@ -2,12 +2,12 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params)
     @comment.save!
-    redirect_to tasks_path
+    redirect_to tasks_path, notice:"コメントを更新しました"
   end
 
   # def destroy
   #   @comment.destroy
-  #   redirect_to tasks_url, notice:"タスクを「#{@comment.content}」削除しました"
+  #   redirect_to tasks_url, notice:"タスクを削除しました"
   # end
   private
 
