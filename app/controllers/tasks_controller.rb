@@ -11,7 +11,6 @@ class TasksController < ApplicationController
   end
 
   def show
-    @task_priority = Task.find_by(priority: params[:priority])
   end
 
   def new
