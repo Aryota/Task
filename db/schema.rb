@@ -48,12 +48,9 @@ ActiveRecord::Schema.define(version: 2020_04_02_070701) do
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.integer "completed"
-<<<<<<< HEAD
     t.datetime "start_at"
     t.datetime "end_at"
     t.integer "priority"
-=======
->>>>>>> master
     t.index ["name"], name: "index_tasks_on_name", unique: true
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
