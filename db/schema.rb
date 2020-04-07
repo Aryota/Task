@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2020_04_02_070701) do
+=======
+ActiveRecord::Schema.define(version: 2020_03_25_103436) do
+>>>>>>> master
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -48,9 +52,12 @@ ActiveRecord::Schema.define(version: 2020_04_02_070701) do
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.integer "completed"
+<<<<<<< HEAD
     t.datetime "start_at"
     t.datetime "end_at"
     t.integer "priority"
+=======
+>>>>>>> master
     t.index ["name"], name: "index_tasks_on_name", unique: true
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
