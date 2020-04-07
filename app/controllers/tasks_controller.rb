@@ -12,8 +12,6 @@ class TasksController < ApplicationController
 
   def show
     @task = Task.find(params[:id])
-    @comments = @task.comments
-    @comment = @task.comments.new
   end
 
   def new
@@ -24,8 +22,11 @@ class TasksController < ApplicationController
   end
 
   def update
-    @task.update!(task_params)
-    redirect_to tasks_url, notice:"タスク「#{@task.name}」を更新しました。"
+    if @task.update(task_params)
+      redirect_to tasks_url, notice:"タスク「#{@task.name}」を更新しました。"
+    else
+      redirect_to tasks_url, notice:"タスク「#{@task.name}」を更新できませんでした。"
+    end
   end
 
   def destroy

@@ -1,12 +1,13 @@
+h2 コメント一覧
 .mb-3
 table.table.table-hover
   tbody
-    - @comments.each do |comment|
+    - @task.comments.each do |comment|
       tr
       td= comment.content
       td= comment.created_at
-h1 投稿
-= form_with model: @comment, local: true do |f|
+h3 投稿
+= form_with model: @task.comments.new, local: true do |f|
   .form_group
     = f.text_area :content, class: 'form-control'
     = f.hidden_field :task_id
