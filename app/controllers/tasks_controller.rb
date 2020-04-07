@@ -71,13 +71,8 @@ class TasksController < ApplicationController
   private
 
   def task_params
-<<<<<<< HEAD
     params.require(:task).permit(:name, :descriptionm, :image, :completed, :content)
-=======
-    params.require(:task).permit(:name, :descriptionm, :image, :completed)
->>>>>>> master
   end
-
 
   def set_task
     @task = current_user.tasks.find(params[:id])
