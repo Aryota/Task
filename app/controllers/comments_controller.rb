@@ -1,8 +1,11 @@
 class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params)
-    @comment.save!
-    redirect_to tasks_path, notice:"コメントを更新しました"
+    if @comment.save
+      redirect_to tasks_path, notice:"コメントを更新しました"
+    else
+      redirect_to tasks_path, notice:"コメントを投稿を失敗しました"
+    end
   end
 
   # def destroy
