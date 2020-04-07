@@ -36,7 +36,7 @@ table.table.table-hover
           td= link_to task.name, task
           td= task.created_at
           td= task.updated_at
-          td= task.priority
+          td= task.priority.to_s.sub("0","低").sub("1","中").sub("2","高")
           td
             = link_to "編集", edit_task_path(task),class:"btn btn-primary mr-3"
             = link_to "削除", task,method: :delete, data: { confirm: "タスク「#{task.name}」を削除します。よろしいでしょうか？"}, class: "btn btn-danger"
