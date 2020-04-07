@@ -14,6 +14,11 @@
     = f.label :image
     = f.file_field :image, class: 'form-control'
   .form-group
+<<<<<<< HEAD
     =f.label :priority
     =f.select :priority, [['低',0],['中',1],['高',2]], {}, class: 'form-control', id: 'task_priority'
+=======
+    = f.label :completed
+    = f.select :completed, [['未完了',0],['完了',1]], {}, class: 'form-control', id: 'task_completed'
+>>>>>>> master
   =f.submit nil, class:"btn btn-primary"
