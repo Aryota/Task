@@ -8,10 +8,10 @@ class CommentsController < ApplicationController
     end
   end
 
-  # def destroy
-  #   @comment.destroy
-  #   redirect_to tasks_url, notice:"タスクを削除しました"
-  # end
+  def destroy
+    @comment = Comment.find(params[:id]).destroy
+    redirect_to task_path(@comment.task_id), notice:"コメントを削除しました"
+  end
   private
 
   def comment_params

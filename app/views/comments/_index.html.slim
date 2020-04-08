@@ -6,6 +6,8 @@ table.table.table-hover
       tr
       td= comment.content
       td= comment.created_at
+      td
+        = link_to '削除', comment, method: :delete, data: { confirm: 'コメントを削除しますか？'}, class: 'btn btn-danger'
 h3 投稿
 = form_with model: @task.comments.new, local: true do |f|
   .form_group
