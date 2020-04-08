@@ -7,9 +7,9 @@ table.table.table-hover
       td= comment.content
       td= comment.created_at
       td
-        = link_to '削除', comment, method: :delete, data: { confirm: 'コメントを削除しますか？'}, class: 'btn btn-danger'
+        = link_to '削除', task_comment_path(id: comment.id, task_id: @task.id), method: :delete, data: { confirm: 'コメントを削除しますか？'}, class: 'btn btn-danger'
 h3 投稿
-= form_with model: @task.comments.new, local: true do |f|
+= form_with(model: [@task, @task.comments.new], local: true) do |f|
   .form_group
     = f.text_area :content, class: 'form-control'
     = f.hidden_field :task_id
