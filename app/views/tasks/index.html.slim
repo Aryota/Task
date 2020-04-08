@@ -12,7 +12,7 @@ h1 タスク一覧
   .form_group
     = f.submit class: 'btn btn-outline-primary'
 
-li = link_to "新規作成",new_task_path,class:"btn btn-primary"
+li = link_to '新規作成',new_task_path,class:'btn btn-primary'
 
 .mb3
   = paginate @tasks_page
@@ -36,13 +36,13 @@ table.table.table-hover
           td= link_to task.name, task
           td= task.created_at
           td= task.updated_at
-          td= task.priority.to_s.sub("0","低").sub("1","中").sub("2","高")
+          td= task.priority.to_s.sub('0','低').sub('1','中').sub('2','高')
           td
-            = link_to "編集", edit_task_path(task),class:"btn btn-primary mr-3"
-            = link_to "削除", task,method: :delete, data: { confirm: "タスク「#{task.name}」を削除します。よろしいでしょうか？"}, class: "btn btn-danger"
+            = link_to '編集', edit_task_path(task),class:'btn btn-primary mr-3'
+            = link_to '削除', task,method: :delete, data: { confirm: "タスク「#{task.name}」を削除します。よろしいでしょうか？"}, class: 'btn btn-danger'
 
 = link_to 'エクスポート', tasks_path(format: :csv), class: 'btn btn-primary mb-3'
 
 = form_tag import_tasks_path, multipart: true, class: 'mb-3' do
   = file_field_tag :file
-  = submit_tag "インポート", class: 'btn btn-primary'
+  = submit_tag 'インポート', class: 'btn btn-primary'
