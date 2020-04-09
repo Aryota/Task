@@ -19,6 +19,7 @@ class TasksController < ApplicationController
   end
 
   def show
+    @task = Task.find(params[:id])
   end
 
   def new
@@ -29,8 +30,11 @@ class TasksController < ApplicationController
   end
 
   def update
-    @task.update!(task_params)
-    redirect_to tasks_url, notice:"タスク「#{@task.name}」を更新しました。"
+    if @task.update(task_params)
+      redirect_to tasks_url, notice:"タスク「#{@task.name}」を更新しました。"
+    else
+      redirect_to tasks_url, notice:"タスク「#{@task.name}」を更新できませんでした。"
+    end
   end
 
   def destroy
@@ -64,16 +68,14 @@ class TasksController < ApplicationController
     redirect_to tasks_url, notice: "タスクを追加しました"
   end
 
-  # def task_logger
-  #   @task_logger ||= Logger.new('log/task.log', 'daily')
-  # end
-
-  # task_logger.debug 'taskのログを出力'
-
   private
 
   def task_params
+<<<<<<< HEAD
     params.require(:task).permit(:name, :descriptionm, :image, :completed, :priority)
+=======
+    params.require(:task).permit(:name, :descriptionm, :image, :completed, :content)
+>>>>>>> master
   end
 
   def set_task

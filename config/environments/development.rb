@@ -34,7 +34,10 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.delivery_method = :smtp
   # config.action_mailer.smtp_settiongs = { address: '127.0.0.1', port: 1025 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
   config.action_mailer.perform_caching = false
 
   # Print deprecation notices to the Rails logger.

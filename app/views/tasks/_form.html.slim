@@ -12,11 +12,16 @@
     = f.text_area:description, rows:5, class:'form-control', id: 'task_description'
   .form_group
     = f.label :image
-    = f.file_field :image, class: 'form-control'
+    = f.file_field :image, class: "form-control"
   .form-group
     = f.label :priority
     = f.select :priority, Task.priorities.keys, {}, class: 'form-control', id: 'task_priority'
   .form-group
     = f.label :completed
+<<<<<<< HEAD
     = f.select :completed, Task.completeds.keys, {}, class: 'form-control', id: 'task_completed'
   = f.submit nil, class:'btn btn-primary'
+=======
+    = f.select :completed, [['未完了',0],['完了',1]], {}, class: "form-control", id: 'task_completed'
+  =f.submit nil, class:"btn btn-primary"
+>>>>>>> master
