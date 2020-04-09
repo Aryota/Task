@@ -1,4 +1,7 @@
 class Task < ApplicationRecord
+  has_many :comments, dependent: :destroy
+  has_one_attached :image
+  belongs_to :user
   paginates_per 50
   def self.csv_attributes
     ["name", "description", "created_at", "updated_at"]
@@ -20,9 +23,6 @@ class Task < ApplicationRecord
       task.save!
     end
   end
-
-  has_one_attached :image
-  belongs_to :user
 
   def self.ransackable_attributes(auth_object = nil)
     %w[name created_at]
