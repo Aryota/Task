@@ -25,7 +25,7 @@ table.table.table-hover
       td= @task.updated_at
     tr
       th= Task.human_attribute_name(:priority)
-      td= @task.priority.to_s.sub("0","低").sub("1","中").sub("2","高")
+      td= @task.priority
 
 = link_to "編集", edit_task_path,class: "btn btn-primary mr-3"
 = link_to "削除", @task,method: :delete, date: { confirm: "タスク「#{@task.name}」を削除します。よろしいでしょうか？"}, class: "btn btn-danger"

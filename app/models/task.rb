@@ -38,7 +38,7 @@ class Task < ApplicationRecord
   scope :recent, -> { order(created_at: :desc) }
 
   enum priority: { low: 0, medium: 1, high: 2 }
-  enum completed: { 未完了:0, 完了:1}
+  enum completed: { 未完了: 0, 完了: 1 }
 
   private
 

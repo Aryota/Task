@@ -15,8 +15,8 @@
     = f.file_field :image, class: 'form-control'
   .form-group
     = f.label :priority
-    = f.select :priority, [['low'],['medium'],['high']], {}, class: 'form-control', id: 'task_priority'
+    = f.select :priority, Task.priorities.keys, {}, class: 'form-control', id: 'task_priority'
   .form-group
     = f.label :completed
-    = f.select :completed, [['未完了'],['完了']], {}, class: 'form-control', id: 'task_completed'
+    = f.select :completed, Task.completeds.keys, {}, class: 'form-control', id: 'task_completed'
   = f.submit nil, class:'btn btn-primary'
