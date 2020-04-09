@@ -1,19 +1,20 @@
 class CommentsController < ApplicationController
-  before_action :comment
+  before_action :find_comment, only: [:edit, :update, :destroy]
 
   def edit
   end
 
   def update
     if @comment.update(comment_params)
-      redirect_to task_path(comment.task_id), notice:"コメントを更新しました"
+      redirect_to task_path(@comment.task_id), notice:"コメントを更新しました"
     else
-      redirect_to task_path(comment.task_id), notice:"コメントが更新できませんでした"
+      redirect_to task_path(@comment.task_id), notice:"コメントが更新できませんでした"
     end
   end
 
   def create
-    if @comment.save
+    comment = Comment.new(comment_params)
+    if comment.save
       redirect_to task_path(comment.task_id), notice:"コメントを更新しました"
     else
       redirect_to task_path(comment.task_id), notice:"コメント投稿を失敗しました"
@@ -21,8 +22,8 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment = Comment.find(params[:id]).destroy
-    redirect_to task_path(comment.task_id), notice:"コメントを削除しました"
+    @comment.destroy
+    redirect_to task_path(@comment.task_id), notice:"コメントを削除しました"
   end
 
   private
@@ -31,7 +32,7 @@ class CommentsController < ApplicationController
     params.require(:comment).permit(:content, :task_id)
   end
 
-  def comment
+  def find_comment
     @comment = Comment.find(params[:id])
   end
 end
