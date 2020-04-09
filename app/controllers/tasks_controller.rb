@@ -1,6 +1,12 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   def index
+    # 発想は間違ってないですが、もうちょっときれいに書けそうです。
+    # enumを使う実装に変えたと思うのでそれも踏まえて書き直してみてください
+    #  if文の複雑さを解消できれば良いです。
+
+    # これってpaginationちゃんとできてます？？
+    # コード見る感じうまくできてなさそうな気がしますが、、
     @show = params[:show]
     if @show == "all"
       @tasks = Task.all
@@ -45,6 +51,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params.merge(user_id: current_user.id))
 
+    # これもこの次のif文に混ぜて良いと思います
     if params[:back].present?
       render :new
       return
@@ -58,6 +65,8 @@ class TasksController < ApplicationController
     end
   end
 
+  # これはconfirmだけで良さそう
+  # どうしても書くのであればどちらかというとconfirm_creationになると思います
   def confirm_new
     @task = current_user.tasks.new(task_params)
     render :new unless @task.valid?
