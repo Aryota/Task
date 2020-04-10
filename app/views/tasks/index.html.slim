@@ -18,9 +18,9 @@ li = link_to '新規作成',new_task_path,class:'btn btn-primary'
   = paginate @tasks_page
   = page_entries_info @tasks_page
 .mb3
-  = link_to 'すべて', tasks_path(:show=>'all'), class: 'btn btn-outline-primary'
-  = link_to '完了', tasks_path(:show=>'completed'), class: 'btn btn-outline-primary'
-  = link_to '未完了', tasks_path, class: 'btn btn-outline-primary'
+  = link_to 'All', tasks_path(:sort=>'all'), class: 'btn btn-outline-primary'
+  = link_to 'Done', tasks_path(:sort=>'completed'), class: 'btn btn-outline-primary'
+  = link_to 'Doing', tasks_path, class: 'btn btn-outline-primary'
 
 table.table.table-hover
   thead.thead-default
@@ -31,7 +31,7 @@ table.table.table-hover
       th = Task.human_attribute_name(:priority)
       th
     tbody
-      - @tasks.each do |task|
+      - @tasks_page.each do |task|
         tr
           td= link_to task.name, task
           td= task.created_at
