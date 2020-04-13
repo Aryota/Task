@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   end
   root to: 'tasks#index'
   resources :tasks do
-    get 'page/:page', :action => :index, :on => :collection
+    get 'page/:page', action: :index, on: :collection
     resources :comments
     post :import, on: :collection
   end
