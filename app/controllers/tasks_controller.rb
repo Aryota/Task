@@ -1,8 +1,8 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   def index
-    @tasks = params[:sort] ? tasks_sort_by_params : Task.doing
-    @q = @tasks.ransack(params[:q])
+    tasks = params[:sort] ? tasks_sort_by_params : Task.doing
+    @q = tasks.ransack(params[:q])
     @tasks_page = @q.result(distinct: true).page(params[:page])
 
     respond_to do |format|
