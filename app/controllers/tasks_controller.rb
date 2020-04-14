@@ -12,7 +12,7 @@ class TasksController < ApplicationController
   end
 
   def show
-    @task = Task.find(params[:id])
+    @task = current_user.tasks.find(params[:id])
   end
 
   def new
@@ -36,8 +36,13 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params.merge(user_id: current_user.id))
-
+    time_start = Date.new(params[:task]["start_at(1i)"].to_i,
+                          params[:task]["start_at(2i)"].to_i,
+                          params[:task]["start_at(3i)"].to_i)
+    time_end = Date.new(params[:task]["end_at(1i)"].to_i,
+                        params[:task]["end_at(2i)"].to_i,
+                        params[:task]["end_at(3i)"].to_i)
+    @task = Task.new(task_params.merge(user_id: current_user.id, start_at: time_start, end_at: time_end))
     if params[:back].blank? && @task.save
       TaskMailer.creation_email(@task).deliver_now
       redirect_to @task, notice: "タスクを「#{@task.name}」登録しました"
@@ -62,8 +67,8 @@ class TasksController < ApplicationController
   end
 
   def tasks_sort_by_params
-    return Task.done if params[:sort] == 'completed'
+    return current_user.tasks.done if params[:sort] == 'completed'
 
-    Task.all
+    current_user.tasks.all
   end
 end

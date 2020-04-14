@@ -24,6 +24,12 @@ table.table.table-hover
       th= Task.human_attribute_name(:updated_at)
       td= @task.updated_at
     tr
+      th= Task.human_attribute_name(:start_at)
+      td= @task.start_at
+    tr
+      th= Task.human_attribute_name(:end_at)
+      td= @task.end_at
+    tr
       th= Task.human_attribute_name(:priority)
       td= @task.priority
 

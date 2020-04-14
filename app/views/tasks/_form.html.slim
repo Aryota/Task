@@ -13,6 +13,21 @@
   .form_group
     = f.label :image
     = f.file_field :image, class: "form-control"
+  .form_group
+    = f.label :start_at
+    = f.date_select(:start_at,
+                    use_month_numbers: true,
+                    start_year:        Date.today.year,
+                    end_year:          Date.today.year + 5,
+                    default:           Date.today,
+                    date_separator:    '/')
+    = f.label :end_at
+    = f.date_select(:end_at,
+                    use_month_numbers: true,
+                    start_year:        Date.today.year,
+                    end_year:          Date.today.year + 5,
+                    default:           Date.today,
+                    date_separator:    '/')
   .form-group
     = f.label :priority
     = f.select :priority, Task.priorities.keys, {}, class: 'form-control', id: 'task_priority'
