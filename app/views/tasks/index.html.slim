@@ -25,7 +25,7 @@ li = link_to '新規作成',new_task_path,class:'btn btn-primary'
 table.table.table-hover
   thead.thead-default
     tr
-      th = sort_link(@q, :name)
+      th = Task.human_attribute_name(:name)
       th = Task.human_attribute_name(:created_at)
       th = Task.human_attribute_name(:updated_at)
       th = Task.human_attribute_name(:priority)
