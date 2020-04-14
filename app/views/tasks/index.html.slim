@@ -9,6 +9,19 @@ h1 タスク一覧
     = f.label :created_at_gteq, '登録日時', class: 'col-sm-2 col-form-label'
     .col-sm-10
       = f.search_field :created_at_gteq, class: 'form-control'
+  .form_group.row
+    = f.label :end_at_gteq, '終了期限', class: 'col-sm-2 col-form-label'
+    .col-sm-10
+      = f.search_field :end_at_gteq, class: 'form-control'
+  .form_group.row
+    = f.label :priority, '優先度', class: 'col-sm-2 col-form-label'
+    .col-sm-10
+      |  low  
+      = f.radio_button :priority_eq, 'low'
+      |  medium  
+      = f.radio_button :priority_eq, 'medium'
+      |  hight  
+      = f.radio_button :priority_eq, 'hight'
   .form_group
     = f.submit class: 'btn btn-outline-primary'
 

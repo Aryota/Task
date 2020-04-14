@@ -1,10 +1,11 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   def index
+    # binding.pry
     if params[:q].present?
       tasks = current_user.tasks
     else
-      tasks = params[:sort] ? tasks_sort_by_params : Task.doing
+      tasks = params[:sort] ? tasks_sort_by_params : current_user.tasks.doing
     end
     @q = tasks.ransack(params[:q])
     @tasks_page = @q.result(distinct: true).page(params[:page])
@@ -62,7 +63,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :description, :image, :completed, :priority, :content)
+    params.require(:task).permit(:name, :description, :image, :completed, :priority, :content, :end_at)
   end
 
   def set_task
