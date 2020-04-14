@@ -1,10 +1,13 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   def index
-    tasks = params[:sort] ? tasks_sort_by_params : Task.doing
+    if params[:q].present?
+      tasks = current_user.tasks
+    else
+      tasks = params[:sort] ? tasks_sort_by_params : Task.doing
+    end
     @q = tasks.ransack(params[:q])
     @tasks_page = @q.result(distinct: true).page(params[:page])
-
     respond_to do |format|
       format.html
       format.csv { send_data @tasks_page.generate_csv, filename: "tasks-#{Time.zone.now.strftime('%Y%m%d%S')}.csv"}
