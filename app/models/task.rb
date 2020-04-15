@@ -3,6 +3,13 @@ class Task < ApplicationRecord
   has_one_attached :image
   belongs_to :user
   paginates_per 50
+  validates :name, presence: true
+  validates :name, length: { maximum: 30 }
+  validate :validate_name_not_including_comma
+  scope :recent, -> { order(created_at: :desc) }
+  enum priority: { low: 0, medium: 1, high: 2 }
+  enum completed: { doing: 0, done: 1 }
+
   def self.csv_attributes
     ["name", "description", "created_at", "updated_at"]
   end
@@ -31,14 +38,6 @@ class Task < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     []
   end
-  validates :name, presence: true
-  validates :name, length: { maximum: 30 }
-  validate :validate_name_not_including_comma
-
-  scope :recent, -> { order(created_at: :desc) }
-
-  enum priority: { low: 0, medium: 1, high: 2 }
-  enum completed: { 未完了: 0, 完了: 1 }
 
   private
 

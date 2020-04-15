@@ -1,17 +1,13 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   def index
-    @show = params[:show]
-    if @show == "all"
-      @tasks = Task.all
-    elsif @show == "completed"
-      @tasks = Task.where(completed: 1)
+    if params[:q].present?
+      tasks = current_user.tasks
     else
-      @tasks = Task.where(completed: 0)
+      tasks = params[:sort] ? tasks_sort_by_params : Task.doing
     end
-    @q = current_user.tasks.ransack(params[:q])
+    @q = tasks.ransack(params[:q])
     @tasks_page = @q.result(distinct: true).page(params[:page])
-
     respond_to do |format|
       format.html
       format.csv { send_data @tasks_page.generate_csv, filename: "tasks-#{Time.zone.now.strftime('%Y%m%d%S')}.csv"}
@@ -33,7 +29,7 @@ class TasksController < ApplicationController
     if @task.update(task_params)
       redirect_to tasks_url, notice:"タスク「#{@task.name}」を更新しました。"
     else
-      redirect_to tasks_url, notice:"タスク「#{@task.name}」を更新できませんでした。"
+      redirect_to tasks_url, notice:"タスクを更新できませんでした。"
     end
   end
 
@@ -45,22 +41,12 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params.merge(user_id: current_user.id))
 
-    if params[:back].present?
-      render :new
-      return
-    end
-
-    if @task.save
+    if params[:back].blank? && @task.save
       TaskMailer.creation_email(@task).deliver_now
       redirect_to @task, notice: "タスクを「#{@task.name}」登録しました"
     else
       render :new
     end
-  end
-
-  def confirm_new
-    @task = current_user.tasks.new(task_params)
-    render :new unless @task.valid?
   end
 
   def import
@@ -71,10 +57,16 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :descriptionm, :image, :completed, :priority, :content)
+    params.require(:task).permit(:name, :description, :image, :completed, :priority, :content)
   end
 
   def set_task
     @task = current_user.tasks.find(params[:id])
+  end
+
+  def tasks_sort_by_params
+    return Task.done if params[:sort] == 'completed'
+
+    Task.all
   end
 end
