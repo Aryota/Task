@@ -16,15 +16,15 @@ h1 タスク一覧
   .form_group.row
     = f.label :priority, '優先度', class: 'col-sm-2 col-form-label'
     .col-sm-10
-      |  low  
-      = f.radio_button :priority_eq, 'low'
-      |  medium  
-      = f.radio_button :priority_eq, 'medium'
-      |  hight  
-      = f.radio_button :priority_eq, 'hight'
+      = f.radio_button :priority_eq, 0
+      |  low
+      = f.radio_button :priority_eq, 1
+      |  medium
+      = f.radio_button :priority_eq, 2
+      |  hight
   .form_group
-    = f.submit class: 'btn btn-outline-primary'
-
+    = f.submit class: 'btn btn-primary'
+br
 li = link_to '新規作成',new_task_path,class:'btn btn-primary'
 
 .mb3

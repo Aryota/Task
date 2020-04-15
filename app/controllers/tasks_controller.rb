@@ -1,7 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   def index
-    # binding.pry
     if params[:q].present?
       tasks = current_user.tasks
     else
