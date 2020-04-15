@@ -16,12 +16,7 @@ h1 タスク一覧
   .form_group.row
     = f.label :priority, '優先度', class: 'col-sm-2 col-form-label'
     .col-sm-10
-      = f.radio_button :priority_eq, 0
-      |  low
-      = f.radio_button :priority_eq, 1
-      |  medium
-      = f.radio_button :priority_eq, 2
-      |  hight
+      = f.select :priority_eq, Task.priorities, class: 'form-control'
   .form_group
     = f.submit class: 'btn btn-primary'
 br
