@@ -9,9 +9,17 @@ h1 タスク一覧
     = f.label :created_at_gteq, '登録日時', class: 'col-sm-2 col-form-label'
     .col-sm-10
       = f.search_field :created_at_gteq, class: 'form-control'
+  .form_group.row
+    = f.label :end_at_gteq, '終了期限', class: 'col-sm-2 col-form-label'
+    .col-sm-10
+      = f.search_field :end_at_gteq, class: 'form-control'
+  .form_group.row
+    = f.label :priority, '優先度', class: 'col-sm-2 col-form-label'
+    .col-sm-10
+      = f.select :priority_eq, Task.priorities, class: 'form-control'
   .form_group
-    = f.submit class: 'btn btn-outline-primary'
-
+    = f.submit class: 'btn btn-primary'
+br
 li = link_to '新規作成',new_task_path,class:'btn btn-primary'
 
 .mb3
@@ -25,10 +33,11 @@ li = link_to '新規作成',new_task_path,class:'btn btn-primary'
 table.table.table-hover
   thead.thead-default
     tr
-      th = sort_link(@q, :name)
+      th = Task.human_attribute_name(:name)
       th = Task.human_attribute_name(:created_at)
       th = Task.human_attribute_name(:updated_at)
       th = Task.human_attribute_name(:priority)
+      th = Task.human_attribute_name(:end_at)
       th
     tbody
       - @tasks_page.each do |task|
@@ -37,6 +46,7 @@ table.table.table-hover
           td= task.created_at
           td= task.updated_at
           td= task.priority
+          td= task.end_at
           td
             = link_to '編集', edit_task_path(task),class:'btn btn-primary mr-3'
             = link_to '削除', task,method: :delete, data: { confirm: "タスク「#{task.name}」を削除します。よろしいでしょうか？"}, class: 'btn btn-danger'

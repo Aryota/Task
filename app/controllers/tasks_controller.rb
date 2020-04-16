@@ -4,7 +4,7 @@ class TasksController < ApplicationController
     if params[:q].present?
       tasks = current_user.tasks
     else
-      tasks = params[:sort] ? tasks_sort_by_params : Task.doing
+      tasks = params[:sort] ? tasks_sort_by_params : current_user.tasks.doing
     end
     @q = tasks.ransack(params[:q])
     @tasks_page = @q.result(distinct: true).page(params[:page])
@@ -15,7 +15,7 @@ class TasksController < ApplicationController
   end
 
   def show
-    @task = Task.find(params[:id])
+    @task = current_user.tasks.find(params[:id])
   end
 
   def new
@@ -40,7 +40,6 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params.merge(user_id: current_user.id))
-
     if params[:back].blank? && @task.save
       TaskMailer.creation_email(@task).deliver_now
       redirect_to @task, notice: "タスクを「#{@task.name}」登録しました"
@@ -57,7 +56,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :description, :image, :completed, :priority, :content)
+    params.require(:task).permit(:name, :description, :image, :completed, :priority, :content, :start_at, :end_at)
   end
 
   def set_task
@@ -65,8 +64,8 @@ class TasksController < ApplicationController
   end
 
   def tasks_sort_by_params
-    return Task.done if params[:sort] == 'completed'
+    return current_user.tasks.done if params[:sort] == 'completed'
 
-    Task.all
+    current_user.tasks.all
   end
 end
