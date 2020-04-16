@@ -39,13 +39,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    time_start = Date.new(params[:task]["start_at(1i)"].to_i,
-                          params[:task]["start_at(2i)"].to_i,
-                          params[:task]["start_at(3i)"].to_i)
-    time_end = Date.new(params[:task]["end_at(1i)"].to_i,
-                        params[:task]["end_at(2i)"].to_i,
-                        params[:task]["end_at(3i)"].to_i)
-    @task = Task.new(task_params.merge(user_id: current_user.id, start_at: time_start, end_at: time_end))
+    @task = Task.new(task_params.merge(user_id: current_user.id))
     if params[:back].blank? && @task.save
       TaskMailer.creation_email(@task).deliver_now
       redirect_to @task, notice: "タスクを「#{@task.name}」登録しました"
@@ -62,7 +56,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :description, :image, :completed, :priority, :content, :end_at)
+    params.require(:task).permit(:name, :description, :image, :completed, :priority, :content, :start_at, :end_at)
   end
 
   def set_task
