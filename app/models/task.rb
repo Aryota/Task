@@ -1,7 +1,7 @@
 class Task < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :users_tasks
-  has_many :user, through: :users_tasks
+  has_many :users, through: :users_tasks
   has_one_attached :image
   paginates_per 50
   validates :name, presence: true
