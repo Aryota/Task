@@ -39,9 +39,9 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params.merge(user_id: current_user.id))
+    @task = Task.new(task_params)
     if params[:back].blank? && @task.save
-      TaskMailer.creation_email(@task).deliver_now
+      UsersTask.create(user_id: user.id, task_id: @task.id)
       redirect_to @task, notice: "タスクを「#{@task.name}」登録しました"
     else
       render :new
