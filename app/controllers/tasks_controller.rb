@@ -15,7 +15,6 @@ class TasksController < ApplicationController
   end
 
   def show
-    @task = current_user.tasks.find(params[:id])
   end
 
   def new
@@ -41,7 +40,9 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if params[:back].blank? && @task.save
-      UsersTask.create(user_id: user.id, task_id: @task.id)
+      params[:task]["user_ids"].each do |ui|
+        UsersTask.create(user_id: ui, task_id: @task.id)
+      end
       redirect_to @task, notice: "タスクを「#{@task.name}」登録しました"
     else
       render :new
@@ -60,7 +61,7 @@ class TasksController < ApplicationController
   end
 
   def set_task
-    @task = current_user.tasks.find(params[:id])
+    @task = Task.find(params[:id])
   end
 
   def tasks_sort_by_params

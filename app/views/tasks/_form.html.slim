@@ -36,6 +36,6 @@
     = f.select :completed, Task.completeds.keys, {}, class: 'form-control', id: 'task_completed'
   .form_group
     - User.all.each do |user|
-        = f.check_box :user_id, {class: "check_box"}
+        = f.check_box :user_ids, { multiple: true, checked: user[:checked], disabled: user[:disabled], include_hidden: false }, user[:id]
         = f.label user.name
   = f.submit nil, class:'btn btn-primary'
