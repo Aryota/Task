@@ -37,5 +37,5 @@
   .form_group
     - User.all.each do |user|
         = f.label user.name
-        = f.check_box :user_ids, { multiple: true, checked: user[:checked], disabled: user[:disabled], include_hidden: false }, user[:id]
+        = f.check_box :user_ids, { multiple: true, include_hidden: false }, user.id
   = f.submit nil, class:'btn btn-primary'

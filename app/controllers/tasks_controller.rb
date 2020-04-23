@@ -15,7 +15,6 @@ class TasksController < ApplicationController
   end
 
   def show
-    @current_user = User.find_by(id: session[:user_id])
   end
 
   def new
@@ -27,7 +26,8 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      user_share
+      UsersTask.where(task_id: @task.id).destroy_all
+      map_task_and_users
       redirect_to tasks_url, notice:"タスク「#{@task.name}」を更新しました。"
     else
       redirect_to tasks_url, notice:"タスクを更新できませんでした。"
@@ -42,7 +42,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if params[:back].blank? && @task.save
-      user_share
+      map_task_and_users
       redirect_to @task, notice: "タスクを「#{@task.name}」登録しました"
     else
       render :new
@@ -70,7 +70,7 @@ class TasksController < ApplicationController
     current_user.tasks.all
   end
 
-  def user_share
+  def map_task_and_users
     params[:task]["user_ids"].each do |ui|
       UsersTask.create(user_id: ui, task_id: @task.id)
     end
