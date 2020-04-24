@@ -15,6 +15,7 @@ class TasksController < ApplicationController
   end
 
   def show
+    @userstask = UsersTask.find_by(task_id: @task.id, user_id: current_user.id).is_owner
   end
 
   def new
@@ -72,7 +73,7 @@ class TasksController < ApplicationController
 
   def map_task_and_users
     params[:task]["user_ids"].each do |ui|
-      UsersTask.create(user_id: ui, task_id: @task.id)
+      UsersTask.create(user_id: ui, task_id: @task.id, is_owner: current_user.id == ui.to_i)
     end
   end
 end
