@@ -15,7 +15,6 @@ class TasksController < ApplicationController
   end
 
   def show
-    @task = current_user.tasks.find(params[:id])
   end
 
   def new
@@ -27,6 +26,8 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
+      UsersTask.where(task_id: @task.id).destroy_all
+      map_task_and_users
       redirect_to tasks_url, notice:"タスク「#{@task.name}」を更新しました。"
     else
       redirect_to tasks_url, notice:"タスクを更新できませんでした。"
@@ -39,9 +40,9 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params.merge(user_id: current_user.id))
+    @task = Task.new(task_params)
     if params[:back].blank? && @task.save
-      TaskMailer.creation_email(@task).deliver_now
+      map_task_and_users
       redirect_to @task, notice: "タスクを「#{@task.name}」登録しました"
     else
       render :new
@@ -60,12 +61,18 @@ class TasksController < ApplicationController
   end
 
   def set_task
-    @task = current_user.tasks.find(params[:id])
+    @task = Task.find(params[:id])
   end
 
   def tasks_sort_by_params
     return current_user.tasks.done if params[:sort] == 'completed'
 
     current_user.tasks.all
+  end
+
+  def map_task_and_users
+    params[:task]["user_ids"].each do |ui|
+      UsersTask.create(user_id: ui, task_id: @task.id)
+    end
   end
 end
