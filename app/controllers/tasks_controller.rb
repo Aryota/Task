@@ -8,6 +8,8 @@ class TasksController < ApplicationController
     end
     @q = tasks.ransack(params[:q])
     @tasks_page = @q.result(distinct: true).page(params[:page])
+    @userstask = UsersTask
+    @task_model = Task
     respond_to do |format|
       format.html
       format.csv { send_data @tasks_page.generate_csv, filename: "tasks-#{Time.zone.now.strftime('%Y%m%d%S')}.csv"}
@@ -16,6 +18,7 @@ class TasksController < ApplicationController
 
   def show
     @userstask = UsersTask.find_by(task_id: @task.id, user_id: current_user.id).is_owner
+    @task_model = Task
   end
 
   def new
