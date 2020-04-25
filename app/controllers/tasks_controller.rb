@@ -76,7 +76,7 @@ class TasksController < ApplicationController
 
   def map_task_and_users
     params[:task]["user_ids"].each do |ui|
-      UsersTask.create(user_id: ui, task_id: @task.id, is_owner: current_user.id == ui.to_i)
+      UsersTask.create(user_id: ui, task_id: @task.id, is_owner: (current_user.id == ui.to_i).to_s)
     end
   end
 end
