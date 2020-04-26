@@ -30,9 +30,12 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      UsersTask.where(task_id: @task.id).destroy_all
-      map_task_and_users
-      redirect_to tasks_url, notice:"タスク「#{@task.name}」を更新しました。"
+      if params[:task]["user_ids"].present?
+        UsersTask.where(task_id: @task.id).destroy_all
+        map_task_and_users
+      else
+        redirect_to edit_task_path, notice:"ユーザーを選択してください！"
+      end
     else
       redirect_to tasks_url, notice:"タスクを更新できませんでした。"
     end
@@ -46,8 +49,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if params[:back].blank? && @task.save
-      map_task_and_users
-      redirect_to @task, notice: "タスクを「#{@task.name}」登録しました"
+      params[:task]["user_ids"].present? ? (map_task_and_users) : (redirect_to new_task_path, notice:"ユーザーを選択してください！")
     else
       render :new
     end
@@ -78,5 +80,6 @@ class TasksController < ApplicationController
     params[:task]["user_ids"].each do |ui|
       UsersTask.create(user_id: ui, task_id: @task.id, is_owner: (current_user.id == ui.to_i).to_s)
     end
+    redirect_to @task, notice: "タスクを「#{@task.name}」登録しました"
   end
 end
