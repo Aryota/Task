@@ -49,14 +49,18 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if params[:back].blank? && @task.save
-      params[:task]["user_ids"].present? ? (map_task_and_users) : (redirect_to new_task_path, notice:"ユーザーを選択してください！")
+      if params[:task]["user_ids"].present?
+        map_task_and_users
+      else
+        redirect_to new_task_path, notice:"ユーザーを選択してください！"
+      end
     else
       render :new
     end
   end
 
   def import
-current_user.tasks.import(params[:file])
+    current_user.tasks.import(params[:file])
     redirect_to tasks_url, notice: "タスクを追加しました"
   end
 
