@@ -19,7 +19,7 @@ class Task < ApplicationRecord
     CSV.generate(headers: true) do |csv|
       csv << csv_attributes
       all.each do |task|
-        csv << csv_attributes.map{|attr| task.send(attr) }
+        csv << csv_attributes.map { |attr| task.send(attr) }
       end
     end
   end
@@ -33,7 +33,7 @@ class Task < ApplicationRecord
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    %w[name created_at end_at priority]
+    %w(name created_at end_at priority)
   end
 
   def self.ransackable_associations(auth_object = nil)
@@ -42,7 +42,7 @@ class Task < ApplicationRecord
 
   private
 
-  def validate_name_not_including_comma
-      errors.add(:name, 'にカンマを含めることはできません') if name&.include?(',')
-  end
+    def validate_name_not_including_comma
+      errors.add(:name, "にカンマを含めることはできません") if name&.include?(",")
+    end
 end
