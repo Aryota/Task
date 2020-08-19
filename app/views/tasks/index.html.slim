@@ -33,11 +33,11 @@ li = link_to '新規作成',new_task_path,class:'btn btn-primary'
 table.table.table-hover
   thead.thead-default
     tr
-      th = (:name)
-      th = @task_model.human_attribute_name(:created_at)
-      th = @task_model.human_attribute_name(:updated_at)
-      th = @task_model.human_attribute_name(:priority)
-      th = @task_model.human_attribute_name(:end_at)
+      th = Task.human_attribute_name(:name)
+      th = Task.human_attribute_name(:created_at)
+      th = Task.human_attribute_name(:updated_at)
+      th = Task.human_attribute_name(:priority)
+      th = Task.human_attribute_name(:end_at)
       th = @userstask.human_attribute_name(:is_owner)
       th
     tbody
@@ -45,7 +45,7 @@ table.table.table-hover
         tr
           td= link_to task.name, task
           td= task.created_at
-          td= task.updated_at
+          td= task.updated_a
           td= task.priority
           td= task.end_at
           td= @userstask.find_by(task_id: task.id, user_id: current_user.id).is_owner
