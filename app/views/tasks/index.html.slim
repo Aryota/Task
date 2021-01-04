@@ -45,7 +45,7 @@ table.table.table-hover
         tr
           td= link_to task.name, task
           td= task.created_at
-          td= task.updated_a
+          td= task.updated_at
           td= task.priority
           td= task.end_at
           td= @userstask.find_by(task_id: task.id, user_id: current_user.id).is_owner
